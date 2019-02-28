@@ -65,3 +65,13 @@ console.log('Entrou em sites errados')
 ====
 
 npm install --save-dev nodemon
+
+
+===
+
+variáveis de ambiente com dotenv
+
+==
+Funções no JS
+na function expression potencialmente o this mudou
+na arrow function, preserva o escopo lexico (ou seja ao this)

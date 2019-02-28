@@ -24,8 +24,12 @@ function pegaUmPorId(idDoProduto) {
     })
 }
 
-module.exports = {
-    pegaTodos,
-    pegaUmPorId
+const insereLivro = () => {
+    
 }
 
+module.exports = {
+    pegaTodos,
+    pegaUmPorId,
+    insereLivro
+}

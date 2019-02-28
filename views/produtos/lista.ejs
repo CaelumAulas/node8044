@@ -14,15 +14,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Começando com NodeJS</td>
-                            <td>39.90</td>
-                            <td><p>Livro introdutório de NodeJS</p></td>
-                        </tr>
+                        <% livros.forEach(function(livro){ %>
+                            <%- include('./item', {livro}) %>    
+                        <% }) %>
                     </tbody>
                 </table>
                 <a href="/produtos/form" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Novo livro</a>
             </div>
         </div>
     </div>
+    
 <% include ../includes/footer.ejs %>

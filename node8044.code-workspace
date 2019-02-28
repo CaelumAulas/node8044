@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"bracket-pair-colorizer-2.colors": [
+			"brown",
+			"Orchid",
+			"green"
+		]
+	}
+}

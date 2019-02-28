@@ -12,6 +12,16 @@ module.exports = function (app) {
             })
     })
 
+    app.post('/produtos', (req,res) => {
+        console.log(req.body);
+        
+        //produtosDAO.insereLivro()
+    })
+
+    app.get('/produtos/form', function(req, res){
+        res.render('produtos/form.ejs')
+    })
+
     app.get('/produtos/:id', function(req,res) {
         const idDoProduto = req.params.id
         produtosDAO.pegaUmPorId(idDoProduto)
@@ -21,6 +31,8 @@ module.exports = function (app) {
                 })
             })
     })
+
+    
 }
 
         // const livros = [
