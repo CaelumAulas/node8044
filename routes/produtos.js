@@ -1,8 +1,9 @@
 
-const produtosDAO = require('../infra/produtosDAO')
-
 module.exports = function (app) {
-    app.get('/produtos', function (req, res) {
+    
+    const produtosDAO = app.infra.produtosDAO
+
+    app.get('/produtos', function (req, res, next) {
         produtosDAO.pegaTodos()
             .then(function(results) {
                 const livros = results
@@ -10,12 +11,15 @@ module.exports = function (app) {
                     livros: livros
                 })                
             })
+            .catch(erro => next(erro))
     })
 
-    app.post('/produtos', (req,res) => {
-        console.log(req.body);
-        
-        //produtosDAO.insereLivro()
+    app.post('/produtos', (req,res, next) => {
+        produtosDAO
+            .insereLivro(req.body)
+            .then(resultados => res.redirect('/produtos'))
+            .catch(erro => next(erro))
+            
     })
 
     app.get('/produtos/form', function(req, res){
@@ -30,6 +34,7 @@ module.exports = function (app) {
                     livros: results
                 })
             })
+            .catch(erro => next(erro))
     })
 
     

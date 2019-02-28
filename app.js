@@ -1,18 +1,28 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const consign = require('consign')
 
 app.use(express.static('./public'))
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({ extended: true }))
 
-require('./routes/home')(app)
-require('./routes/produtos')(app)
+consign()
+    .include('./infra')
+    .then('./routes')
+    .into(app)
 
+app.use(function (request, response, next) {
+    const msg = `Recurso não encontrado ${request.originalUrl}`
+    response.status(404).render('erros/404.ejs', { msg })
+    console.warn(msg);
+})
 
+app.use(function (error, request, response, next) {
+    response.status(500).render('erros/500.ejs', { error })
+    console.error(error);
+})
 
 module.exports = app
-
-
 
 
 

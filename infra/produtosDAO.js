@@ -5,11 +5,8 @@ function pegaTodos() {
     return new Promise(function(resolve, reject) {
         connection.query('SELECT * FROM livros', function(err, results) {
             connection.end();
-            if(err) {
-                reject(err)
-                return;
-            }
-            resolve(results)
+            if(err) return reject(err);
+            resolve(results);
         })
     })
 }
@@ -19,17 +16,28 @@ function pegaUmPorId(idDoProduto) {
     return new Promise(function(resolve, reject) {
         connection.query(`SELECT * FROM livros WHERE id = ${idDoProduto}`, function(err, results) {
             connection.end();
-            resolve(results)  
+            if(err) return reject(err);
+            resolve(results);
         })
     })
 }
 
-const insereLivro = () => {
-    
+const insereLivro = (livro) => {
+    const connection = connectionFactory()
+
+    return new Promise((resolve, reject) => {
+
+        connection.query('INSERT INTO livros SET ?', livro, (err, resultado) => {
+            connection.end();
+            if(err) return reject(err);
+            return resolve(resultado);
+        })
+
+    })
 }
 
-module.exports = {
+module.exports = () => ({ 
     pegaTodos,
     pegaUmPorId,
     insereLivro
-}
+})
