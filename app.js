@@ -2,9 +2,22 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const consign = require('consign')
+const cors = require('cors')
 
+// Adiciona o cors, e testa com isso:
+// fetch('http://localhost:3000/produtos', {
+//     method: 'POST',
+//     headers: {
+//         'Accept': 'application/json',
+//         'Content-type': 'application/json'
+//     }
+// })
+// https://github.com/caelum/cmail-back
+
+app.use(cors())
 app.use(express.static('./public'))
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 consign()
     .include('./infra')

@@ -1,0 +1,22 @@
+<ul class="livrosContainer">
+    <li></li>
+</ul>
+<script>
+    fetch('http://localhost:3000/produtos', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(async (responseDoServer) => { 
+        const responseDoServerConvertido = await responseDoServer.json()
+        console.log(responseDoServerConvertido)
+
+        return responseDoServerConvertido
+    })
+
+ 
+    // JSONP
+    // Proibir site A se passar por site B
+    // feicibuque.com
+</script>

@@ -1,3 +1,4 @@
+const Joi = require('joi');
 
 module.exports = function (app) {
     
@@ -7,17 +8,71 @@ module.exports = function (app) {
         produtosDAO.pegaTodos()
             .then(function(results) {
                 const livros = results
-                res.render('produtos/lista.ejs', { // View Model
-                    livros: livros
-                })                
+                // Usar o Postman pra mandar o Accept: application/json
+                res.format({
+                    html: () => {
+                        res.render('produtos/lista.ejs', { // View Model
+                            livros: livros
+                        })                
+                    },
+                    json: () => {
+                        res.send({ // View Model
+                            livros: livros
+                        })
+                    }
+                })
             })
             .catch(erro => next(erro))
     })
 
-    app.post('/produtos', (req,res, next) => {
+    app.post('/produtos', (req, res, next) => {
+        const insereLivroSchema = Joi.object().keys({
+            titulo: Joi.string().required(),
+            preco: Joi.number().min(0).required(),
+            descricao: Joi.string()
+        })
+        
+        const result = Joi.validate(req.body, insereLivroSchema, { abortEarly: false });
+        if(result.error) {
+            // res.send(result.error) // Criar um conversor desse result.error
+            // Reponse default quando houverem erros do JOI
+
+            res.status(400)
+            res.format({
+                html: () => {
+                    res.render('produtos/form.ejs', {
+                        errors: result.error.details
+                    }) // passar os erros
+                },
+                json: () => {
+                    res.send({
+                        errors: result.error.details
+                    })
+                }
+            })
+            return
+        }
+        
+        const livroDTO = {
+            titulo: req.body.titulo,
+            preco: req.body.preco,
+            descricao: req.body.descricao
+        }        
+
         produtosDAO
-            .insereLivro(req.body)
-            .then(resultados => res.redirect('/produtos'))
+            .insereLivro(livroDTO)
+            .then(resultados => {
+                res.status(201)
+                res.format({
+                    html: () => res.redirect('/produtos'),
+                    json: () => {
+                        res.append('Access-Control-Allow-Origin', ['*']);
+                        // retornar o objeto inteiro
+                        res.send(resultados)
+                    }
+                })
+
+            })
             .catch(erro => next(erro))
             
     })
