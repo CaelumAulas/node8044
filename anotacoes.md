@@ -100,3 +100,25 @@ variáveis de ambiente com dotenv
 Funções no JS
 na function expression potencialmente o this mudou
 na arrow function, preserva o escopo lexico (ou seja ao this)
+
+
+
+Nossa app é um CRUDzao
+- Isso vai crescer 
+- 
+
+## Tipos de teste
+- Unidade: Você tem regras de negócio acontecendo
+- Integração:
+    - Sobe um container local e resolve a vida
+    - Para subir bases: https://www.delphix.com/br
+    - https://www.heroku.com/
+    - Caçar o serviço que sobe ambiente bolha: https://azure.microsoft.com/pt-br/
+    - Exemplo de arquiteturas maiores: https://www.youtube.com/watch?v=M7le0OEF9NQ
+- Aceitação/e2e: https://docs.cypress.io/guides/core-concepts/introduction-to-cypress.html#Cypress-Is-Simple
+- Stress/Carga: https://www.npmjs.com/package/artillery 
+- Segurança
+
+
+## Não se preocupe com "isso é mais rápido que aquilo"
+- https://www.youtube.com/watch?v=i3LRWERf74M

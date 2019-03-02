@@ -7,7 +7,9 @@ module.exports = function (app) {
     app.get('/produtos', function (req, res, next) {
         produtosDAO.pegaTodos()
             .then(function(results) {
+
                 const livros = results
+                // console.log(livros)
                 // Usar o Postman pra mandar o Accept: application/json
                 res.format({
                     html: () => {
